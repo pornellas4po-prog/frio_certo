@@ -1,0 +1,11 @@
+{
+  "name": "@friocerto/modules",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Liberação por módulos do Frio Certo: planos (Atendimento/Agendamento → +OS → +Orçamento/Financeiro), funcionalidades e bloqueio de telas.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "peerDependencies": { "react": ">=18" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json" }
+}
