@@ -3,6 +3,7 @@
 > **Autor:** @analyst (Alex) · **Versão:** 0.1 (rascunho para revisão do dono) · **Data:** 2026-11-15
 > **Fontes:** `planoprd.md` (briefing do dono), protótipo aprovado `climatizacao-prototipo02.html` e decisões do dono registradas em conversa (2026-11-15).
 > Itens marcados com **[A DEFINIR]** não foram decididos ainda e não devem ser tratados como requisito.
+> **Atualização (2026-11-15):** as questões em aberto 1, 2 e 3 foram respondidas pelo dono e estão registradas no `docs/prd.md` v0.2 (seção "Pendências resolvidas"). O PRD é a fonte de verdade a partir daqui.
 
 ---
 
