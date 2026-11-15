@@ -20,6 +20,11 @@
 - Branch patterns: `feat/*`, `fix/*`, `docs/*`
 - Semantic versioning: MAJOR.MINOR.PATCH
 
+### Regras do projeto Frio Certo (definidas pelo dono em 2026-11-15)
+- **Commit sempre vira push + PR contra a `main`.** Todo commit vai para uma branch própria (`feat/*`, `fix/*`, `docs/*`, `chore/*`), nunca direto na `main`. Depois do commit: `git push` da branch + `gh pr create --base main`. **Nunca fazer merge** — o dono lê o PR e faz o merge manualmente.
+- **Migration primeiro no Supabase, depois push + PR.** Se houver migration pendente, aplicar no Supabase antes (`supabase db push`), conferir que deu certo (`supabase migration list`) e só então fazer push + PR. Se o deploy da migration falhar: parar, não fazer push nem PR, e avisar o dono.
+- Detalhes: `.claude/rules/devops-push-pr.md`.
+
 ### MCP Infrastructure
 - Docker MCP Gateway on port 8080
 - Servers: context7, desktop-commander, playwright, exa
