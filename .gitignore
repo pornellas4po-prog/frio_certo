@@ -32,3 +32,8 @@ Thumbs.db
 .venv/
 __pycache__/
 *.pyc
+
+# Configurações MCP com tokens (nunca versionar)
+.mcp.prod.json
+mcp.prod.json
+.mcp.*.json
