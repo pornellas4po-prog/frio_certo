@@ -1,0 +1,19 @@
+{
+  "name": "@friocerto/theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tema do Frio Certo: tokens de design (cores claro/escuro, fontes, raios), CSS base e controle de tema.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./styles/index.css"
+  },
+  "sideEffects": ["*.css"],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  }
+}

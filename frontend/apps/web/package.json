@@ -1,0 +1,27 @@
+{
+  "name": "@friocerto/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "App web do Frio Certo (Next.js), montado com os pacotes @friocerto/*.",
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start --port 3000",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@friocerto/icons": "0.1.0",
+    "@friocerto/modules": "0.1.0",
+    "@friocerto/theme": "0.1.0",
+    "@friocerto/ui": "0.1.0",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,57 @@
+/* @friocerto/theme · tokens de design
+   Fonte: protótipo aprovado (climatizacao-prototipo02.html), tema "climatização · azul gelo + marinho".
+   As fontes Inter e JetBrains Mono são carregadas pelo app (next/font) nas variáveis --font-inter e --font-mono. */
+
+:root{
+  --font: var(--font-inter, 'Inter'), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: var(--font-mono, 'JetBrains Mono'), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sbw: 248px;  /* largura do menu lateral */
+  --tb: 64px;    /* altura da barra superior */
+  --r-sm: 8px; --r: 10px; --r-lg: 12px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --brand-navy: #0B2545; /* topo do menu lateral */
+}
+
+/* ---------- tema claro ---------- */
+:root,[data-theme="light"]{
+  color-scheme: light;
+  --bg:#F3F6F9; --sb:#FFFFFF; --surface:#FFFFFF; --surface-2:#F8F9FA; --surface-3:#EEF0F3; --elev:#FFFFFF;
+  --line:#ECEEF1; --line-2:#E1E4E9; --hover:#F5F6F8;
+  --text:#1D2433; --text-2:#4B5563; --muted:#8A92A0;
+  --accent:#0284C7; --accent-ink:#0369A1; --accent-soft:#E0F2FE; --accent-line:#7DD3FC;
+  --teal:#0B2545; --teal-2:#13406B; --teal-soft:#E6EEF7;
+  --success:#16A34A; --success-bg:#E8F7EE;
+  --warn:#B7791F; --warn-bg:#FDF5E2; --yellow:#F5B82E;
+  --danger:#DC2626; --danger-bg:#FDECEC;
+  --info:#2563EB; --info-bg:#EAF1FE;
+  --violet:#7C3AED; --violet-bg:#F1EBFE;
+  --neutral:#4B5563; --neutral-bg:#F0F2F5;
+  --s1:#0284C7; --s2:#0B2545; --s3:#16A34A; --s4:#7C3AED;
+  --grid:#EEF0F3; --axis:#E1E4E9;
+  --shadow:0 12px 32px rgba(17,24,39,.10); --shadow-sm:0 1px 2px rgba(17,24,39,.05);
+  --chat-bg:#F5F3EF; --bub-in:#FFFFFF; --bub-out:#DDF4E4; --bub-out-h:#FFE9DC; --bub-ink:#111827;
+  --scrim:rgba(17,24,39,.42);
+  --bar-bg:#ECEEF1;
+}
+
+/* ---------- tema escuro ---------- */
+[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#0E1116; --sb:#13171E; --surface:#161B23; --surface-2:#1B212B; --surface-3:#232A36; --elev:#1A2029;
+  --line:#232A35; --line-2:#2E3644; --hover:rgba(255,255,255,.04);
+  --text:#E8ECF2; --text-2:#B1B9C6; --muted:#7E8899;
+  --accent:#38BDF8; --accent-ink:#7DD3FC; --accent-soft:rgba(56,189,248,.14); --accent-line:rgba(56,189,248,.4);
+  --teal:#3B82C4; --teal-2:#60A5FA; --teal-soft:rgba(59,130,196,.16);
+  --success:#34D399; --success-bg:rgba(52,211,153,.12);
+  --warn:#FBBF24; --warn-bg:rgba(251,191,36,.12); --yellow:#FBBF24;
+  --danger:#F87171; --danger-bg:rgba(248,113,113,.12);
+  --info:#6AA8FF; --info-bg:rgba(106,168,255,.13);
+  --violet:#B9A2FF; --violet-bg:rgba(167,139,250,.14);
+  --neutral:#B1B9C6; --neutral-bg:rgba(148,163,184,.12);
+  --s1:#38BDF8; --s2:#36A2B3; --s3:#34D399; --s4:#B9A2FF;
+  --grid:#232A35; --axis:#2E3644;
+  --shadow:0 12px 32px rgba(0,0,0,.45); --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  --chat-bg:#0F141B; --bub-in:#1E2530; --bub-out:#14402F; --bub-out-h:#4A2A18; --bub-ink:#E8ECF2;
+  --scrim:rgba(0,0,0,.6);
+  --bar-bg:#232A35;
+}

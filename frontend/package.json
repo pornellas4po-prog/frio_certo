@@ -1,0 +1,19 @@
+{
+  "name": "friocerto-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Frontend do Frio Certo: app Next.js + pacotes de design system (tema, ícones, componentes) e liberação por módulos.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @friocerto/web",
+    "build": "npm run build -w @friocerto/web",
+    "start": "npm run start -w @friocerto/web",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
