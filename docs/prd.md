@@ -137,11 +137,19 @@ A do protótipo. Nome da marca editável em Configurações.
 ## Premissas Técnicas
 
 ### Estrutura do Repositório: Monorepo
-Um único repositório no GitHub com o frontend (Next.js) e o backend/agentes (Python) — estrutura final a confirmar com o @architect.
+Um único repositório no GitHub com três pastas, que são também os três serviços no Easypanel (aprovado pelo dono em 2026-11-21):
+
+| Pasta / serviço | Conteúdo |
+|---|---|
+| `frontend` | Next.js + pacotes `@friocerto/theme`, `icons`, `ui` e `modules` |
+| `backend` | API Python (FastAPI), monólito modular com uma pasta por módulo |
+| `worker` | Webhook do WhatsApp, agentes de IA e tarefas agendadas (Python) |
 
 ### Arquitetura de Serviços
-- **Frontend:** Next.js.
-- **Backend e agentes de IA:** Python (framework a definir pelo @architect).
+- **Frontend:** Next.js (serviço `frontend`).
+- **Backend:** Python com FastAPI, monólito modular; os módulos são ligados por configuração (serviço `backend`).
+- **Agentes de IA, WhatsApp e tarefas agendadas:** Python, processo separado (serviço `worker`).
+- **Multi-tenant futuro:** toda tabela nasce com `empresa_id` (valor fixo na fase 1).
 - **Banco:** Supabase com RLS e pgvector.
 - **Arquivos:** Cloudflare R2.
 - **Hospedagem:** VPS Hostinger com Easypanel.
@@ -212,7 +220,7 @@ Como **dono do sistema**, quero uma área exclusiva com as configurações do si
 Como **dono do sistema**, quero o projeto publicado na VPS Hostinger via Easypanel, para acessar pela internet.
 
 **Critérios de aceite**
-1. Frontend e backend publicados no Easypanel.
+1. Os serviços `frontend`, `backend` e `worker` publicados no Easypanel.
 2. Página de verificação de saúde respondendo.
 
 ---
