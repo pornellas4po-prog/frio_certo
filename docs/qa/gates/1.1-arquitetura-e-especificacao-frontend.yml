@@ -1,0 +1,37 @@
+schema: 1
+story: '1.1'
+story_title: 'Arquitetura e especificação de frontend'
+gate: CONCERNS
+status_reason: 'AC 1 e AC 2 atendidos, 17 decisões rastreadas ao PRD e guia cobrindo as 43 histórias; restam apenas ajustes de sincronia de versão nos documentos (baixa severidade).'
+reviewer: 'Quinn (@qa)'
+reviewed_revision: 'digest:sha256:16e5702be0571c63 (architecture.md + front-end-spec.md + story 1.1, sem commit; base bb34572)'
+updated: '2026-11-25T23:23:10Z'
+
+checks:
+  code_review: 'N/A — story de documentação; Markdown revisado'
+  unit_tests: 'N/A — sem código (Testing da story: validação por checklist e revisão do @pm)'
+  acceptance_criteria: 'PASS — AC1: D1, D8, D12, D13 resolvem as premissas; LGPD registrada como pendência P2 com recomendação. AC2: Login, Perfis e usuários, Área Developer, Transbordo e aba Horário de atendimento especificados'
+  regressions: 'PASS — nenhum arquivo de código alterado'
+  performance: 'N/A — metas registradas como recomendação (P3)'
+  security: 'PASS — nenhum segredo nos documentos; NFR4/NFR10 cobertos (D11, §14)'
+  documentation: 'CONCERNS — ver top_issues'
+
+evidence:
+  decisions_traced: '17/17 decisões com coluna de rastreio para FR/NFR/premissa'
+  implementation_guide: '43/43 histórias com entrada na §18'
+  broken_references: 'nenhuma; docs/Uazapi/contrato-validado.md é saída esperada da Story 1.7'
+  quality_gate_pm: 'APROVADO em 2026-11-25 (Change Log 0.6)'
+
+top_issues:
+  - id: 'DOC-001'
+    severity: low
+    finding: 'architecture.md e front-end-spec.md citam como base o PRD v0.3; o PRD está na v0.4 e a §17 da arquitetura já foi aplicada, mas o documento não registra isso.'
+    suggested_action: '@architect atualizar a linha "Base" para v0.4 e marcar a §17 como aplicada.'
+    suggested_owner: architect
+  - id: 'DOC-002'
+    severity: low
+    finding: 'front-end-spec.md §2 diz que o PRD deixava acessibilidade [A DEFINIR]; o PRD v0.4 já adota WCAG 2.1 AA.'
+    suggested_action: '@ux-design-expert ajustar a frase para "adotada no PRD v0.4".'
+    suggested_owner: ux-design-expert
+
+waiver: { active: false }
