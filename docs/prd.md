@@ -1,6 +1,6 @@
 # Frio Certo — Documento de Requisitos do Produto (PRD)
 
-> **Autor:** @pm (Morgan) · **Versão:** 0.3 (rascunho para revisão do dono) · **Data:** 2026-11-21
+> **Autor:** @pm (Morgan) · **Versão:** 0.4 (rascunho para revisão do dono) · **Data:** 2026-11-25
 > **Base:** `docs/project-brief.md`, `planoprd.md`, protótipo `climatizacao-prototipo02.html` e decisões do dono.
 > **Regra:** nada aqui é inventado (Constituição AIOX, Art. IV). O que ainda não foi decidido está marcado **[A DEFINIR]** e não vira história de desenvolvimento até ser decidido.
 
@@ -27,6 +27,7 @@ O Frio Certo transforma esse protótipo em produto: painel de gestão em Next.js
 | 2026-11-15 | 0.1 | Primeiro rascunho a partir do brief | @pm (Morgan) |
 | 2026-11-15 | 0.2 | Pendências 1 a 6 respondidas pelo dono: orçamento pelos agentes de atendimento, Vision fora do MVP, fluxo de OS pelos agentes, fontes de verdade da agenda, controles da IA, setup de instância uazapi (Épico 7 reescrito com base em `docs/Uazapi/`) | @pm (Morgan) |
 | 2026-11-21 | 0.3 | Decisões do dono sobre o planejamento: nova ordem e renumeração dos épicos (11 épicos, alinhados aos 3 módulos de liberação); OS (criação e aprovação) no Módulo 1; lembrete 24 h antes da visita; agentes especialistas num épico próprio depois da base de conhecimento; transbordo com atendente único; horário de atendimento humano; agentes 24/7 | @pm (Morgan) |
+| 2026-11-25 | 0.4 | Revisão da História 1.1 e ajustes da `docs/architecture.md` §17: premissas [A DEFINIR com o @architect] resolvidas (autenticação D1, testes D13, modelos D8, Asaas D12); interpretação FR42 (1) × NFR4 (D11); item M1 (6.2 sem equipamentos); acessibilidade WCAG 2.1 AA; LGPD e desempenho passam a pendências do dono; épicos em `docs/prd/` | @pm (Morgan) |
 
 ---
 
@@ -92,7 +93,7 @@ O Frio Certo transforma esse protótipo em produto: painel de gestão em Next.js
 - **FR41:** A base de conhecimento (RAG híbrido) é formada pela **base de serviços e valores** (FR7) e por outros dados da empresa que o usuário inclui ou digita (horários de funcionamento etc.).
 
 **Controle da IA (Área Developer)**
-- **FR42:** A Área Developer deve ter estes controles da IA: (1) chaves e conexões (OpenAI, uazapi, Asaas, R2), (2) modelo por agente (GPT-4o ou GPT-4o mini), (3) ligar e desligar cada agente, (4) instruções (prompt) de cada agente, (5) palavras-chave do orquestrador, (6) regra do transbordo, (7) limite de gasto da OpenAI e (8) registros das decisões da IA e do custo por conversa.
+- **FR42:** A Área Developer deve ter estes controles da IA: (1) chaves e conexões (OpenAI, uazapi, Asaas, R2), (2) modelo por agente (GPT-4o ou GPT-4o mini), (3) ligar e desligar cada agente, (4) instruções (prompt) de cada agente, (5) palavras-chave do orquestrador, (6) regra do transbordo, (7) limite de gasto da OpenAI e (8) registros das decisões da IA e do custo por conversa. No item (1), a tela mostra só o status ("configurada / não configurada") e o teste de conexão; o armazenamento segue a decisão D11 (ver NFR4).
 
 **Painel**
 - **FR43:** O painel deve mostrar indicadores (faturamento, OS em andamento e concluídas), agenda do dia, preventivas a vencer, recebimentos pendentes e OS sem agendamento.
@@ -102,12 +103,12 @@ O Frio Certo transforma esse protótipo em produto: painel de gestão em Next.js
 - **NFR1:** Toda a interface e as mensagens dos agentes em **português do Brasil**.
 - **NFR2:** Web **responsiva**: gestão no computador e uso pelo técnico no celular.
 - **NFR3:** Todas as tabelas do Supabase com **RLS** ativado; o acesso respeita as permissões do perfil (FR4).
-- **NFR4:** Segredos (chaves OpenAI, uazapi, Supabase, Asaas, R2) somente em variáveis de ambiente, **nunca no repositório**.
+- **NFR4:** Segredos (chaves OpenAI, uazapi, Supabase, Asaas, R2) **nunca no repositório**. Interpretação aprovada (arquitetura D11): chaves de infraestrutura (Supabase, token admin da uazapi, R2) somente em variáveis de ambiente; chaves que o dono troca pela Área Developer (OpenAI, Asaas — FR42 item 1) ficam criptografadas no **Supabase Vault**.
 - **NFR5:** Fotos e PDFs armazenados no **Cloudflare R2**, não no banco.
 - **NFR6:** Um **cron** deve manter o Supabase (plano free) ativo, evitando a pausa por inatividade.
 - **NFR7:** Os agentes **nunca inventam** preço nem horário: sempre consultam catálogo e agenda.
-- **NFR8:** Dados pessoais de clientes tratados com cuidado de privacidade **[A DEFINIR com o @architect o nível de exigência, ex.: LGPD]**.
-- **NFR9:** Metas de desempenho e de tempo de resposta da IA **[A DEFINIR]**.
+- **NFR8:** Dados pessoais de clientes tratados com cuidado de privacidade. Nível de exigência (ex.: LGPD formal) **[A DEFINIR pelo dono]** — pendência P2; até a decisão vale a recomendação da arquitetura §14.
+- **NFR9:** Metas de desempenho e de tempo de resposta da IA **[A DEFINIR pelo dono]** — pendência P3; até a decisão valem as metas sugeridas na arquitetura §15.
 - **NFR10:** O **token administrativo da uazapi** e os **tokens das instâncias** ficam somente no backend; o navegador nunca chama a uazapi diretamente.
 - **NFR11:** O webhook da uazapi deve responder **200 OK imediatamente** e processar a mensagem em segundo plano (exigência da uazapi para evitar reenvios e bloqueio).
 - **NFR12:** Envios pelo WhatsApp devem simular comportamento humano (atraso entre mensagens e status "digitando"), para reduzir o risco de bloqueio do número.
@@ -129,7 +130,8 @@ Seguir o **protótipo aprovado** `climatizacao-prototipo02.html`: painel limpo, 
 ### Telas e Visões Principais
 Login · Painel · Meu dia · Agenda · Ordens de serviço · Atendimento · Canais (instância WhatsApp) · Transbordo · Clientes · Equipamentos · Serviços e peças · Técnicos · Orçamentos · Financeiro · Configurações · Perfis e usuários · Área Developer.
 
-### Acessibilidade: [A DEFINIR]
+### Acessibilidade: WCAG 2.1 nível AA
+Recomendação da especificação de frontend (`docs/front-end-spec.md` §2), adotada nesta versão. Verificação automática com `eslint-plugin-jsx-a11y` e `@axe-core/playwright` (arquitetura §15A).
 
 ### Identidade Visual
 A do protótipo. Nome da marca editável em Configurações.
@@ -171,13 +173,14 @@ O sistema é desenvolvido completo, mas liberado por módulo, de forma cumulativ
 > **Decisão do dono (2026-11-21):** a criação e a aprovação da OS ficam no Módulo 1, porque os agentes criam OS Pendente. A execução da OS fica no Módulo 2.
 
 ### Requisitos de Teste
-**[A DEFINIR com o @architect]** — o método AIOX exige testes para toda funcionalidade nova e quality gate do @qa antes do push.
+O método AIOX exige testes para toda funcionalidade nova e quality gate do @qa antes do push. Definido na arquitetura (D13, §12 e §13): **pytest** no backend e no worker, testes de banco contra o **Supabase local**, **Vitest** + Testing Library no frontend e **Playwright** nos fluxos críticos; cobertura mínima de 80% nas regras de negócio (`services/`); CI no GitHub Actions em todo PR.
 
 ### Premissas Técnicas Adicionais
 - **OpenAI Vision fica fora do MVP.** Será usado numa funcionalidade futura, ainda em análise pelo dono: **entrada de compras via OCR**.
 - **uazapi:** servidor próprio do dono (`UAZAPI_BASE_URL`, ex.: `https://optus.uazapi.com`), versão uazapiGO v2. Referências em `docs/Uazapi/`.
-- Divisão de uso entre GPT-4o e GPT-4o mini por agente **[A DEFINIR com o @architect]**.
-- Autenticação: provedor a definir pelo @architect.
+- Divisão de uso entre GPT-4o e GPT-4o mini por agente (arquitetura D8, padrão alterável na Área Developer): orquestrador, técnico e financeiro com **GPT-4o mini**; novos clientes e clientes antigos com **GPT-4o**.
+- Autenticação: **Supabase Auth** (e-mail e senha); o usuário Developer é marcado no próprio cadastro (`usuarios.is_developer`) (arquitetura D1).
+- Detalhes técnicos completos: `docs/architecture.md`. Épicos detalhados: `docs/prd/epic-*.md`.
 
 ---
 
@@ -501,10 +504,12 @@ Como **atendente**, quero que o sistema mostre só horários realmente livres pa
 Como **atendente**, quero criar a OS com cliente, tipo, técnico, data, problema, equipamentos e itens.
 
 **Critérios de aceite**
-1. Os quatro tipos e os cinco status de OS.
+1. Os quatro tipos (FR15) e os cinco status de OS (FR16).
 2. Itens puxados do catálogo, com total calculado.
 3. Histórico de alterações da OS.
 4. Aprovação da OS Pendente por uma pessoa (FR36).
+
+> **Item M1 (v0.4):** nesta história a OS é criada **sem equipamentos**; o campo equipamentos entra na História 9.1, com o Módulo 2 (arquitetura §7.9).
 
 ### História 6.3 — Agenda no estilo Google Agenda
 Como **dono**, quero uma agenda parecida com o Google Agenda, com os atendimentos e as jornadas dos técnicos.
@@ -650,7 +655,7 @@ Como **dono**, quero escolher entre cobrar com o checkout Asaas ou apenas com a 
 **Critérios de aceite**
 1. Opção de contratar e configurar o checkout Asaas.
 2. Sem Asaas, OS e orçamentos exibem a chave Pix cadastrada.
-3. Detalhes da integração Asaas (confirmação automática de pagamento etc.) **[A DEFINIR com o @architect]** (História 1.1).
+3. Integração Asaas (arquitetura D12): a API v3 cria a cobrança (Pix, boleto ou cartão) e o webhook do Asaas (`PAYMENT_RECEIVED` / `PAYMENT_CONFIRMED`, validado pelo header `asaas-access-token`) marca o recebimento automaticamente.
 
 ### História 10.4 — Agente financeiro
 Como **cliente antigo**, quero saber o que tenho a pagar.
@@ -679,13 +684,13 @@ Como **dono**, quero ver o resumo do negócio ao abrir o sistema.
 Como **dono**, quero ser avisado sobre preventivas, recebimentos e OS sem data.
 
 **Critérios de aceite**
-1. Central de alertas com esses três tipos.
+1. Central de alertas com esses três tipos: preventivas (a vencer ou vencidas), recebimentos pendentes e OS sem data (FR43).
 
 ---
 
 ## Resultado do Checklist
 
-Ainda não executado. Próximo passo: o @po valida este PRD com o `po-master-checklist`, depois que o dono revisar.
+`po-master-checklist` executado pelo @po sobre a v0.3 (2026-11-21). Itens levantados: **M1** (equipamentos na OS) — resolvido na v0.4; **M2** (orçamento dos agentes no Módulo 1) — pendência P1; **M3** (contas, credenciais e domínio) — pendência P4. As 43 histórias foram validadas pelo @po em 2026-11-25 (GO).
 
 ## Próximos Passos
 
@@ -707,11 +712,24 @@ Ainda não executado. Próximo passo: o @po valida este PRD com o `po-master-che
 12. ✅ Transbordo com atendente único, avisado pelo WhatsApp e respondendo pela caixa (FR39, FR40, História 3.3).
 13. ✅ Horário de atendimento humano na página Base de Conhecimento, válido só para o transbordo; agentes 24/7 (FR44, FR45, NFR13, História 3.4).
 
+**v0.4 (2026-11-25) — via História 1.1 (`docs/architecture.md` §17)**
+14. ✅ Autenticação → Supabase Auth (D1).
+15. ✅ Requisitos de teste → pytest, Supabase local, Vitest e Playwright (D13).
+16. ✅ Divisão GPT-4o / GPT-4o mini por agente (D8).
+17. ✅ Integração Asaas → API v3 + webhook (D12, História 10.3).
+18. ✅ FR42 (1) × NFR4 → variáveis de ambiente + Supabase Vault (D11).
+19. ✅ Item M1 → História 6.2 sem equipamentos; campo na História 9.1.
+20. ✅ Acessibilidade → WCAG 2.1 AA.
+
 ### Pendências em aberto
 1. Regras de negócio adicionais do método (fornecidas pelo dono).
 2. Com um atendente único, avaliar se a ação **"transferir a conversa"** (FR28, História 2.6) continua necessária.
 3. **Futura, a cobrar no Épico 3:** persona de cada agente.
 4. **Futura, em análise:** entrada de compras via OCR (OpenAI Vision).
+5. **P1 — Item M2:** confirmar se o orçamento dos agentes no Módulo 1 é o valor informado na conversa (suposição da arquitetura §7.8; afeta 8.2 e 8.3).
+6. **P2 — LGPD (NFR8):** nível de exigência formal.
+7. **P3 — Desempenho (NFR9):** metas de tempo de resposta.
+8. **P4 — Contas e credenciais:** Supabase, OpenAI, R2, token admin da uazapi, Easypanel, Asaas (se contratar) e domínio. **Bloqueia** as Histórias 1.3, 1.6, 1.7, 3.1 e 10.3 em produção.
 
 ### Prompt para o UX Expert
 @ux-design-expert: usando este PRD e o protótipo `climatizacao-prototipo02.html`, crie a especificação de frontend (`docs/front-end-spec.md`), acrescentando as telas novas: Login, Perfis e Usuários, Área Developer, cadastro do atendente de transbordo e a aba "Horário de atendimento" da página Base de Conhecimento.
